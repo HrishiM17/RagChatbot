@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 RAG Chatbot</h1>
+            <div class="header-controls">
+                <div class="usage-display">
+                    <span id="usage-counter">Messages: --/200</span>
+                </div>
+                <button id="clear-chat" class="btn-secondary">Clear Chat</button>
+                <button id="upload-docs" class="btn-secondary">Upload Docs</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="chat-container">
+                <div id="messages" class="messages-area">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>Hello! I'm your RAG chatbot. I can answer questions based on the documents you've uploaded. How can I help you today?</p>
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea 
+                            id="message-input" 
+                            placeholder="Ask me anything about your documents..."
+                            rows="1"
+                        ></textarea>
+                        <button id="send-btn" class="send-button" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        Press Enter to send, Shift+Enter for new line
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Upload Modal -->
+        <div id="upload-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Upload Documents</h2>
+                <p>Upload PDF, DOCX, TXT, or MD files to add to the knowledge base.</p>
+                
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <p>Drag and drop files here or click to select</p>
+                        <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="text-upload-section">
+                    <h3>Or Add Text Directly</h3>
+                    <textarea 
+                        id="direct-text" 
+                        placeholder="Paste your text content here..."
+                        rows="4"
+                    ></textarea>
+                    <input 
+                        type="text" 
+                        id="text-source-name" 
+                        placeholder="Source name (optional)"
+                        value="direct_input"
+                    >
+                    <button id="add-text-btn" class="btn-primary">Add Text</button>
+                </div>
+
+                <div class="upload-status" id="upload-status"></div>
+                
+                <div class="modal-actions">
+                    <button id="upload-btn" class="btn-primary" disabled>Upload Files</button>
+                    <button class="btn-secondary close-modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div id="loading" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Thinking...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
